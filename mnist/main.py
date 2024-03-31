@@ -23,13 +23,16 @@ class Net(nn.Module):
         x = self.conv1(x)
         x = F.relu(x)
         if START_TRACE:
-            print("Start")
+            memory_init = torch.cuda.memory_allocated()
+            print("start")
             ncu.start()
 
         x = self.conv2(x)
         if START_TRACE:
-            print("Stop")
+            print("stop")
             ncu.stop()
+            memory_end = torch.cuda.memory_allocated()
+            print("The memory usage is: {} MB".format((memory_end - memory_init) / 1024**2))
             quit()
 
         x = F.relu(x)
