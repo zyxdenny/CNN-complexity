@@ -13,8 +13,8 @@ def main():
 
 
     # Convert strings to lists of integers
-    x = [int(val) for val in args.x.split(',')]
-    y = [int(val) for val in args.y.split(',')]
+    x = [float(val) for val in args.x.split(',')]
+    y = [float(val) for val in args.y.split(',')]
 
     # Create a figure and axis objects
     fig, ax = plt.subplots()
