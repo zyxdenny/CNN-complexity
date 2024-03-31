@@ -6,6 +6,9 @@ def main():
     parser = argparse.ArgumentParser(description='Plot a line chart from bash arrays')
     parser.add_argument('--x', type=str, required=True, help='x array values')
     parser.add_argument('--y', type=str, required=True, help='y array values')
+    parser.add_argument('--xlabel', type=str, required=True, help='x axis label')
+    parser.add_argument('--ylabel', type=str, required=True, help='y axis label')
+    parser.add_argument('--title', type=str, required=True, help='tile of the plot')
     args = parser.parse_args()
 
 
@@ -20,12 +23,12 @@ def main():
     ax.plot(x, y)
 
     # Add labels and a title
-    ax.set_xlabel('X-axis label')
-    ax.set_ylabel('Y-axis label')
-    ax.set_title('Line Chart')
+    ax.set_xlabel(args.xlabel)
+    ax.set_ylabel(args.ylabel)
+    ax.set_title(args.title)
 
     # Save the plot as a PNG file
-    plt.savefig('line_chart.png', dpi=300, bbox_inches='tight')
+    plt.savefig("{}.png".format(args.title.replace(" ", "_")), dpi=300, bbox_inches='tight')
 
 if __name__ == '__main__':
     main()

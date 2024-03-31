@@ -4,7 +4,7 @@ get_flop () {
 #     echo $1
     ncu --profile-from-start off --metrics smsp__sass_thread_inst_executed_op_fadd_pred_on \
         --target-processes all python ./mnist/main.py --batch-size $1 --epochs 1 --dry-run \
-        | grep 'smsp__sass_thread_inst_executed_op_fadd_pred_on.avg' \
+        | grep 'smsp__sass_thread_inst_executed_op_fadd_pred_on.sum' \
         | sed -n '2p' \
         | awk '{print $3}'
 }
@@ -14,10 +14,11 @@ y=()
 
 for log_batch in ${x[@]}; do
     flop=$(get_flop $((2 ** log_batch))) 
+    echo $flop
     y+=($flop)
 done
 
 x=$(echo ${x[*]} | sed 's/ /,/g')
 y=$(echo ${y[*]} | sed 's/ /,/g')
 
-python3 plot.py --x $x --y $y
+python3 plot.py --x $x --y $y --xlabel batch_size --ylabel instructions --title instructions_vs_batch_size
