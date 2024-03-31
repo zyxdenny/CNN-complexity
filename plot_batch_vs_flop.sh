@@ -14,11 +14,10 @@ y=()
 
 for log_batch in ${x[@]}; do
     flop=$(get_flop $((2 ** log_batch))) 
-    echo $flop
     y+=($flop)
 done
 
 x=$(echo ${x[*]} | sed 's/ /,/g')
 y=$(echo ${y[*]} | sed 's/ /,/g')
 
-python3 plot.py --x $x --y $y --xlabel batch_size --ylabel instructions --title instructions_vs_batch_size
+python3 plot.py --x $x --y $y --xlabel log_batch_size --ylabel instructions --title instructions_vs_batch_size
